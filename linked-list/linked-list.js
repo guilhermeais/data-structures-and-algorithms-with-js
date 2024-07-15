@@ -122,9 +122,31 @@ export class LinkedList {
     return this.removeAt(index);
   }
 
-  isEmpty() {}
+  isEmpty() {
+    return this.#count === 0;
+  }
+
   size() {
     return this.#count;
   }
-  toString() {}
+
+  getHead() {
+    return this.#head;
+  }
+
+  toString() {
+    if (this.#head == null) {
+      return "";
+    }
+
+    let objString = `${this.#head.value}`;
+    let current = this.#head.next;
+
+    for (let i = 1; i < this.#count && !!current; i++) {
+      objString = `${objString}, ${current.value}`;
+      current = current.next;
+    }
+
+    return objString;
+  }
 }

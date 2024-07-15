@@ -181,4 +181,21 @@ describe("LinkedList", () => {
       assert.strictEqual(linkedList.getElementAt(0).value, beatrizObj);
     });
   });
+
+  describe('toString()', () => {
+    it('should return a string representation of the list', () => {
+      const linkedList = new LinkedList();
+
+      linkedList.push("Ana");
+      linkedList.push("Beatriz");
+
+      assert.strictEqual(linkedList.toString(), "Ana, Beatriz");
+    });
+
+    it('should return an empty string if the list is empty', () => {
+      const linkedList = new LinkedList();
+
+      assert.strictEqual(linkedList.toString(), "");
+    });
+  });
 });
