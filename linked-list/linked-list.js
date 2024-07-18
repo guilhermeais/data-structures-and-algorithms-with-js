@@ -2,12 +2,15 @@ import { defaultEquals } from "./default-equals.js";
 import { Node } from "./node.js";
 
 export class LinkedList {
-  #count = 0;
-  #head = null;
-  #equalsFn = defaultEquals;
+  count = 0;
+  /**
+   * @type {Node} Cabeça da lista
+   */
+  head = null;
+  equalsFn = defaultEquals;
 
   constructor(equalsFn = defaultEquals) {
-    this.#equalsFn = equalsFn;
+    this.equalsFn = equalsFn;
   }
 
   /**
@@ -16,10 +19,10 @@ export class LinkedList {
   push(element) {
     const node = new Node(element);
 
-    if (this.#head == null) {
-      this.#head = node;
+    if (this.head == null) {
+      this.head = node;
     } else {
-      let current = this.#head;
+      let current = this.head;
 
       while (current.next != null) {
         current = current.next;
@@ -28,21 +31,21 @@ export class LinkedList {
       current.next = node;
     }
 
-    this.#count++;
+    this.count++;
   }
 
   /**
    * @description Remove um elemento de uma posição específica da lista
    */
   removeAt(index) {
-    if (index < 0 || index >= this.#count) {
+    if (index < 0 || index >= this.count) {
       return undefined;
     }
 
-    let nodeToRemove = this.#head;
+    let nodeToRemove = this.head;
 
     if (index === 0) {
-      this.#head = nodeToRemove.next;
+      this.head = nodeToRemove.next;
     } else {
       let previousNode = this.getElementAt(index - 1); // Busca o nó anterior ao que vai ser removido
       nodeToRemove = previousNode.next; // O nó a ser removido é o próximo do anterior
@@ -50,7 +53,7 @@ export class LinkedList {
       previousNode.next = nodeToRemove?.next; // O próximo do anterior passa a ser o próximo do nó a ser removido
     }
 
-    this.#count--;
+    this.count--;
     return nodeToRemove.value;
   }
 
@@ -58,11 +61,11 @@ export class LinkedList {
    * @default Retorna o elemento na posição do index
    */
   getElementAt(index) {
-    if (index < 0 || index >= this.#count) {
+    if (index < 0 || index >= this.count) {
       return undefined;
     }
 
-    let current = this.#head;
+    let current = this.head;
 
     for (let i = 0; i < index && !!current; i++) {
       current = current.next;
@@ -75,15 +78,15 @@ export class LinkedList {
    * @description Adiciona um elemento em uma posição específica da lista
    */
   insert(element, index) {
-    if (index < 0 || index > this.#count) {
+    if (index < 0 || index > this.count) {
       return false;
     }
 
     const newNode = new Node(element);
 
     if (index === 0) {
-      const oldHead = this.#head;
-      this.#head = newNode;
+      const oldHead = this.head;
+      this.head = newNode;
       newNode.next = oldHead;
     } else {
       const previousNode = this.getElementAt(index - 1);
@@ -93,7 +96,7 @@ export class LinkedList {
       newNode.next = currentNodeOnGivenIndex;
     }
 
-    this.#count++;
+    this.count++;
     return true;
   }
 
@@ -101,10 +104,10 @@ export class LinkedList {
    * @description Retorna a posição de um elemento na lista, se não existir retorna -1
    */
   indexOf(element) {
-    let current = this.#head;
+    let current = this.head;
 
-    for (let i = 0; i < this.#count && !!current; i++) {
-      if (this.#equalsFn(element, current.value)) {
+    for (let i = 0; i < this.count && !!current; i++) {
+      if (this.equalsFn(element, current.value)) {
         return i;
       }
 
@@ -123,26 +126,26 @@ export class LinkedList {
   }
 
   isEmpty() {
-    return this.#count === 0;
+    return this.count === 0;
   }
 
   size() {
-    return this.#count;
+    return this.count;
   }
 
   getHead() {
-    return this.#head;
+    return this.head;
   }
 
   toString() {
-    if (this.#head == null) {
+    if (this.head == null) {
       return "";
     }
 
-    let objString = `${this.#head.value}`;
-    let current = this.#head.next;
+    let objString = `${this.head.value}`;
+    let current = this.head.next;
 
-    for (let i = 1; i < this.#count && !!current; i++) {
+    for (let i = 1; i < this.count && !!current; i++) {
       objString = `${objString}, ${current.value}`;
       current = current.next;
     }
