@@ -9,8 +9,18 @@ export class Node {
    */
   next;
 
-  constructor(value) {
+  constructor(value, next = null) {
     this.value = value;
-    this.next = null;
+    this.next = next;
+  }
+
+  toString() {
+    let result = `${this.value}`;
+
+    if (this.next) {
+      result += ` -> ${this.next.toString()}`;
+    }
+
+    return result
   }
 }
